@@ -17,7 +17,7 @@ slack_client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 send_message_hour = 10
 send_message_minute = 0
 
-def sleepUntil(hour, minute):
+def sleep_until(hour, minute):
   t = datetime.datetime.today()
   future = datetime.datetime(t.year, t.month, t.day, hour, minute)
   if t.timestamp() > future.timestamp():
@@ -57,7 +57,7 @@ def send_message():
 
 def main():
   while True:
-    sleepUntil(hour=send_message_hour, minute=send_message_minute)
+    sleep_until(hour=send_message_hour, minute=send_message_minute)
     logging.info('Waking up at ' \
       + str(send_message_hour) \
       + ' : ' \
