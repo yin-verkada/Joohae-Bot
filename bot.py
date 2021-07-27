@@ -14,9 +14,9 @@ env_path = Path('.') / '.env'
 load_dotenv(env_path)
 SLACK_CLIENT = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 
-# Send the message at 10:00 am
+# Send the message at 10:50 am
 SEND_MESSAGE_HOUR = 10
-SEND_MESSAGE_MINUTE = 0
+SEND_MESSAGE_MINUTE = 50
 
 SLACK_CHANNEL = 'mobile'
 SLACK_CHANNEL_FOR_TEST = 'slack-bot-test'
