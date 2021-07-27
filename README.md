@@ -22,6 +22,6 @@ Note that you want the script to continue running even if you close the terminal
 
 ## The name
 
-We named this bot after Joohae. It is because that Joohae used run the random shuffle script manually everyday and send it over to the Slack channel. We created this bot to liberate Joohae from this labor. And we would like to commemorate Joohae's good effort along the way. 
+We named this bot after Joohae. It is because that Joohae used to run the random shuffle script manually everyday and send it over to the Slack channel. We created this bot to liberate Joohae from this labor. And we would like to commemorate Joohae's good effort along the way. 
 
 Thank you, Joohae. You are now free. 
