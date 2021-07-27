@@ -76,7 +76,7 @@ def main():
         + ' on ' \
         + str(datetime.datetime.now().date()))
       maybe_send_message()
-      logging.info('-------------- Iteration done ---------------')
+      logging.info('-------------- Iteration done ' + str(datetime.datetime.today()))
 
 parser = argparse.ArgumentParser(description='Process flags.')
 parser.add_argument('--test', \
