@@ -41,19 +41,19 @@ def get_message():
   shuffled_list = shuffle.get_shuffled_list_with_emoji()
   congi_dance_index = shuffle.get_conji_dance_index()
   logging.info('congi index: ' + str(congi_dance_index))
-  header = 'Today\'s order of speaking: \n ----------- \n'
-  footer = '\n--- EOL ---'
+  header = 'Today\'s order of speaking: \n ----------- '
+  footer = '--- EOL ---'
 
-  lines = []
+  lines = [header]
   for index, member_with_emoji in enumerate(shuffled_list):
     if index != congi_dance_index:
       lines.append(member_with_emoji[0] + '  ' + member_with_emoji[1])
     else:
       lines.append(member_with_emoji[0] + '  ' + member_with_emoji[1] + ' :dancing_corgi:')
   
-  body = '\n'.join(lines) 
-  return header + body + footer
-
+  lines.append(footer)
+  msg = '\n'.join(lines) 
+  return msg
 
 def send_message(target_channel=SLACK_CHANNEL):
   msg = get_message()
@@ -78,10 +78,11 @@ def main():
       maybe_send_message()
       logging.info('-------------- Iteration done ---------------')
 
+parser = argparse.ArgumentParser(description='Process flags.')
+parser.add_argument('--test', \
+  default=False, \
+  action='store_true', \
+  help="When set to true, the bot will send the msg immediatly to #slack-bot-test")
+
 if __name__ == '__main__':
-  parser = argparse.ArgumentParser(description='Process flags.')
-  parser.add_argument('--test', \
-    default=False, \
-    action='store_true', \
-    help="When set to true, the bot will send the msg immediatly to #slack-bot-test")
   main()
