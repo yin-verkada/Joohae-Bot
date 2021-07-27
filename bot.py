@@ -41,8 +41,8 @@ def get_message():
   shuffled_list = shuffle.get_shuffled_list_with_emoji()
   congi_dance_index = shuffle.get_conji_dance_index()
   logging.info('congi index: ' + str(congi_dance_index))
-  header = 'Today\'s order of speaking: \n ----------- '
-  footer = '--- EOL ---'
+  header = ':star::star::star: Today\'s order of speaking :star::star::star:\n ----------- '
+  footer = '----- Have a nice day! -----'
 
   lines = [header]
   for index, member_with_emoji in enumerate(shuffled_list):
