@@ -6,16 +6,20 @@ import datetime
 import time
 import shuffle
 import logging
+import argparse
 
 logging.basicConfig(filename='bot.log', encoding='utf-8', level=logging.INFO)
 
 env_path = Path('.') / '.env'
 load_dotenv(env_path)
-slack_client = slack.WebClient(token=os.environ['SLACK_TOKEN'])
+SLACK_CLIENT = slack.WebClient(token=os.environ['SLACK_TOKEN'])
 
 # Send the message at 10:00 am
-send_message_hour = 10
-send_message_minute = 0
+SEND_MESSAGE_HOUR = 10
+SEND_MESSAGE_MINUTE = 0
+
+SLACK_CHANNEL = 'mobile'
+SLACK_CHANNEL_FOR_TEST = 'slack-bot-test'
 
 def sleep_until(hour, minute):
   t = datetime.datetime.today()
@@ -51,21 +55,33 @@ def get_message():
   return header + body + footer
 
 
-def send_message():
+def send_message(target_channel=SLACK_CHANNEL):
   msg = get_message()
-  slack_client.chat_postMessage(channel='slack-bot', text=msg)
+  SLACK_CLIENT.chat_postMessage(channel=target_channel, text=msg)
 
 def main():
-  while True:
-    sleep_until(hour=send_message_hour, minute=send_message_minute)
-    logging.info('Waking up at ' \
-      + str(send_message_hour) \
-      + ' : ' \
-      + str(send_message_minute) \
-      + ' on ' \
-      + str(datetime.datetime.now().date()))
-    maybe_send_message()
-    logging.info('-------------- Iteration done ---------------')
+  args = parser.parse_args()
+  is_test = args.test
+
+  if is_test:
+    logging.info('Running test at ' + str(datetime.datetime.today()))
+    send_message(target_channel=SLACK_CHANNEL_FOR_TEST)
+  else:
+    while True:
+      sleep_until(hour=SEND_MESSAGE_HOUR, minute=SEND_MESSAGE_MINUTE)
+      logging.info('Waking up at ' \
+        + str(SEND_MESSAGE_HOUR) \
+        + ' : ' \
+        + str(SEND_MESSAGE_MINUTE) \
+        + ' on ' \
+        + str(datetime.datetime.now().date()))
+      maybe_send_message()
+      logging.info('-------------- Iteration done ---------------')
 
 if __name__ == '__main__':
+  parser = argparse.ArgumentParser(description='Process flags.')
+  parser.add_argument('--test', \
+    default=False, \
+    action='store_true', \
+    help="When set to true, the bot will send the msg immediatly to #slack-bot-test")
   main()
